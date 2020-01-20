@@ -1,13 +1,22 @@
 f = open("census", "r")
 l=[]
 won=[]
+i=0
+name1=""
+name2=""
 for x in f:
-  a=x.rstrip().split(" ")
-  l.append((a[0],int(a[1])))
-  won.append(False)
-  if(len(a)>2):
-      if(a[2]=="W"):
-          won[-1]=True
+    if i==0:
+        name1=x.rstrip()
+    if i==1:
+        name2=x.rstrip()
+    if i>=2:
+        a=x.rstrip().split(" ")
+        l.append((a[0],int(a[1])))
+        won.append(False)
+        if(len(a)>2):
+            if(a[2]=="W"):
+                won[-1]=True
+    i+=1
 
 priority=[]
 nseats=[]
@@ -38,10 +47,4 @@ for i in range(len(l)):
     if(won[i]):
         total_vote+=nseats[i]
         
-print("final score:",total_vote,"-",total-total_vote,"which is a ",end="")
-if total_vote>270:
-    print("win!")
-elif total_vote<270:
-    print("loss!")
-else:
-    print("tie!")
+print("final score:",name1,total_vote,"-",total-total_vote,name2)
